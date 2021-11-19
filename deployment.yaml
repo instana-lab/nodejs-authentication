@@ -1,0 +1,50 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  creationTimestamp: null
+  labels:
+    app: authentication
+  name: authentication
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: authentication
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: authentication
+    spec:
+      containers:
+      - image: de.icr.io/shopping/authentication
+        name: authentication
+        env:
+          - name: INSTANA_SERVICE_NAME
+            value: "authentication_nodejs"
+          - name : INSTANA_AGENT_HOST
+            valueFrom:
+              fieldRef:
+                fieldPath: status.hostIP
+        resources: {}
+status: {}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  creationTimestamp: null
+  labels:
+    app: authentication
+  name: authentication
+spec:
+  ports:
+  - name: 3000-3000
+    port: 3000
+    protocol: TCP
+    targetPort: 3000
+  selector:
+    app: authentication
+  type: LoadBalancer
+status:
+  loadBalancer: {}
