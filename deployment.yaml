@@ -21,6 +21,16 @@ spec:
       - image: de.icr.io/shopping/authentication
         name: authentication
         env:
+          - name: APPID_OAUTHSERVERURL
+            value: "https://eu-de.appid.cloud.ibm.com/oauth/v4/XXX"
+          - name: APPID_CLIENTID
+            value: "XXX"
+          - name: APPID_SECRET
+            value: "XXX"
+          - name: REDIRECT_URL_CALLBACK
+            value: "http://localhost:3000/callback"
+          - name: REDIRECT_URL_WEB_APP
+            value: "http://localhost:8080/loginwithtoken"
           - name: INSTANA_SERVICE_NAME
             value: "authentication_nodejs"
           - name : INSTANA_AGENT_HOST
